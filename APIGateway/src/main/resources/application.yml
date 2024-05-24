@@ -12,11 +12,26 @@ spring:
   application:
     name: API_GATEWAY
   cloud:
+
     gateway:
       routes:
         - id: AUTH-SERVICE
           uri: lb://AUTH-SERVICE
           predicates:
             - Path=/auth/**
+          filters:
+            - AuthenticationFilter
+
+        - id: CUSTOMER-SERVICE
+          uri: lb://CUSTOMER-SERVICE
+          predicates:
+            - Path=/api/v1/customers/**
+          filters:
+            - AuthenticationFilter
+
+        - id: STAFF-SERVICE
+          uri: lb://STAFF-SERVICE
+          predicates:
+            - Path=/api/v1/staff/**
           filters:
             - AuthenticationFilter
