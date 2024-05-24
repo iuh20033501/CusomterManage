@@ -3,7 +3,7 @@ name: Shopmanagement
 on:
   push:
     branches: [main]
-  pull_request:
+  pull:
     branches: [main]
 jobs:
   docker:
