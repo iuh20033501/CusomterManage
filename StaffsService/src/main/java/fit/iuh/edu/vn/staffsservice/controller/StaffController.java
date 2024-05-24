@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -19,6 +20,12 @@ public class StaffController {
                 .filter(staff -> staff.getStatus() == 1)
                 .collect(Collectors.toList());
     }
+
+    @GetMapping("/findById/{id}")
+    public Optional<Staff> getStaffById(String id) {
+        return staffRepository.findById(id);
+    }
+
     @PostMapping("/create")
     public Staff createStaff(Staff staff) {
 
@@ -38,10 +45,10 @@ public class StaffController {
 
     @PutMapping("/delete/{id}")
     public Staff deleteStaff(@PathVariable String id) {
-        Staff customer =staffRepository.findById(id).orElse(null);
-        if (customer != null) {
-            customer.setStatus(1);
-            return  staffRepository.save(customer);
+        Staff staff =staffRepository.findById(id).orElse(null);
+        if (staff != null) {
+            staff.setStatus(1);
+            return  staffRepository.save(staff);
         }
         return null;
     }
