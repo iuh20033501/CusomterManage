@@ -30,8 +30,35 @@ public class ProductController {
             return null;
         }
     }
+    @GetMapping("/{productId}/quantity")
+    public Integer getProductQuantity(@PathVariable String productId) {
+        Optional<Product> productOptional = productRepository.findById(productId);
+        if (productOptional.isPresent()) {
+            Product product = productOptional.get();
+            return product.getQuantity();
+        } else {
+            return null;
+        }
+    }
 
+    @PostMapping("/reduce/{productId}")
+    public ResponseEntity<?> reduceProductQuantity(@PathVariable String productId) {
+        if (productId == null || productId.isEmpty()) {
+            return ResponseEntity.badRequest().body("Product ID cannot be empty");
+        }
+        Optional<Product> productOptional = productRepository.findById(productId);
+        if (productOptional.isEmpty()) {
+            return ResponseEntity.badRequest().body("Product not found");
+        }
+        Product product = productOptional.get();
+        if (product.getQuantity() <= 0) {
+            return ResponseEntity.badRequest().body("Product is out of stock");
+        }
+        product.setQuantity(product.getQuantity() - 1);
+        productRepository.save(product);
 
+        return ResponseEntity.ok("Quantity of product " + productId + " reduced successfully");
+    }
     @GetMapping("/findById/{id}")
     public Optional<Product> getProductById(String id) {
         return productRepository.findById(id);

@@ -1,6 +1,6 @@
 package fit.iuh.edu.vn.purchaseservice.entity;
 
-import fit.iuh.edu.vn.purchaseservice.service.ProductClientService;
+import fit.iuh.edu.vn.purchaseservice.controller.PurchaseController;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.web.client.RestTemplate;
@@ -26,9 +26,9 @@ public class Purchase {
     private  double totalprice;
     public Double calculateTotalPrice(RestTemplate restTemplate) {
         double totalPrice = 0.0;
-        ProductClientService productClientService = new ProductClientService(restTemplate);
+        PurchaseController purchaseController = new PurchaseController(restTemplate);
         for (String productId : productIds) {
-            Double productPrice = productClientService.getProductPrice(productId);
+            Double productPrice = purchaseController.getProductPrice(productId);
             if (productPrice != null) {
                 totalPrice += productPrice;
             }
