@@ -8,11 +8,6 @@ on:
     types: [opened, synchronize, reopened]
     paths:
       - '**'
-  workflow_run:
-    workflows: ["Shopmanagement"]
-    types:
-      - completed
-
 jobs:
   docker:
     runs-on: ubuntu-latest
