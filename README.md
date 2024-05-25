@@ -1,8 +1,8 @@
-#NHÓM 12
+# NHÓM 12
 
-##Shop Management
+## Shop Management
 
-####Thành viên:
+#### Thành viên:
 1 - 20033501 - Hà Huy Hùng
 2 - 20119821 - Phạm Trung Vĩnh
 
