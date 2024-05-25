@@ -9,8 +9,8 @@
         <outputRelativeToContentRoot value="true" />
         <module name="API-Gateway" />
         <module name="CustomersService" />
-        <module name="PurchaseService" />
         <module name="AuthJWTService" />
+        <module name="PurchaseService" />
         <module name="ProductService" />
         <module name="AnalysisService" />
         <module name="StaffsService" />

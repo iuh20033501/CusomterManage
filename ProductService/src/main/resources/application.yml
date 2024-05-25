@@ -8,3 +8,13 @@ eureka:
       value: true
     instance:
       hostname: localhost
+
+
+resilience4j:
+  ratelimiter:
+    instances:
+      serviceStaff:
+        registerHealthIndicator: false
+        limitForPeriod: 3
+        limitRefreshPeriod: 10s
+        timeoutDuration: 5s

@@ -9,13 +9,15 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serializable;
+
 @Entity
 @Table(name ="staffs")
 @NoArgsConstructor
 @ToString
 @Getter
 @Setter
-public class Staff {
+public class Staff implements Serializable {
     @Id
     @Column(name ="staffID")
     private String id;
