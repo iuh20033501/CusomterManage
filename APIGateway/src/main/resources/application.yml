@@ -13,23 +13,44 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: AUTH-SERVICE
-          uri: lb://AUTH-SERVICE
+        - id: AuthService
+          uri: lb://AuthService
           predicates:
             - Path=/auth/**
           filters:
             - AuthenticationFilter
 
-#        - id: CUSTOMER-SERVICE
-#          uri: lb://CUSTOMER-SERVICE
-#          predicates:
-#            - Path=/api/v1/customers/**
-#          filters:
-#            - AuthenticationFilter
-#
-#        - id: STAFF-SERVICE
-#          uri: lb://STAFF-SERVICE
-#          predicates:
-#            - Path=/api/v1/staff/**
-#          filters:
-#            - AuthenticationFilter
+        - id: CustomersService
+          uri: lb://CustomersService
+          predicates:
+            - Path=/api/v1/customers/**
+          filters:
+            - AuthenticationFilter
+
+        - id: StaffsService
+          uri: lb://StaffsService
+          predicates:
+            - Path=/api/v1/staff/**
+          filters:
+            - AuthenticationFilter
+
+        - id: ProductService
+          uri: lb://ProductService
+          predicates:
+            - Path=/api/v1/products/**
+          filters:
+            - AuthenticationFilter
+
+        - id: PurchaseService
+          uri: lb://PurchaseService
+          predicates:
+            - Path=/api/v1/purchase/**
+          filters:
+            - AuthenticationFilter
+
+        - id: AnalyticsService
+          uri: lb://AnalyticsService
+          predicates:
+            - Path=/api/v1/analytics/**
+          filters:
+            - AuthenticationFilter
