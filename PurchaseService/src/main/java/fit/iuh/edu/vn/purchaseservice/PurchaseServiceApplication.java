@@ -11,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 
+import java.util.List;
 import java.util.Optional;
 
 @SpringBootApplication
@@ -49,8 +50,10 @@ public class PurchaseServiceApplication {
 //            purchase.setTotalprice(totalPrice);
 //            purchaseController.createPurchase((List<String>) purchase);
 //            System.out.println("Purchase created: " + purchase);
-                Product product = purchaseController.getProductById("LK01");
-                System.out.println(product);
+//                Product product = purchaseController.getProductById("LK01");
+//                System.out.println(product);
+            List<Product> lsProducts = purchaseController.getAllProduct();
+            lsProducts.forEach(x -> System.out.println(x));
         };
     }
 }

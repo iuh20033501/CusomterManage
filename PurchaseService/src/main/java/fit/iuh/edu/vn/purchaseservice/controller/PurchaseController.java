@@ -3,9 +3,17 @@ package fit.iuh.edu.vn.purchaseservice.controller;
 import fit.iuh.edu.vn.purchaseservice.entity.Product;
 import fit.iuh.edu.vn.purchaseservice.entity.Purchase;
 import fit.iuh.edu.vn.purchaseservice.repository.PurchaseRepository;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.retry.RetryCallback;
+import org.springframework.retry.RetryContext;
+import org.springframework.retry.annotation.Backoff;
+import org.springframework.retry.annotation.Retryable;
+import org.springframework.retry.support.RetryTemplate;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
@@ -21,6 +29,8 @@ public class PurchaseController {
     private PurchaseRepository purchaseRepository;
     @Autowired
     private final RestTemplate restTemplate;
+    @Autowired
+    private RetryTemplate retryTemplate;
 
     public PurchaseController(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
@@ -33,6 +43,40 @@ public class PurchaseController {
                 .filter(purchase -> purchase.getStatus() == 1)
                 .collect(Collectors.toList());
     }
+    //CircuitBreaker
+    @GetMapping("/getAllProduct")
+    @CircuitBreaker(name = "getAllProduct", fallbackMethod = "getAllProductFallback")
+    public List<Product> getAllProduct() {
+        String getAllProductUrl = "http://localhost:8082/api/product/getAll";
+
+        try {
+            return retryTemplate.execute(new RetryCallback<List<Product>, RuntimeException>() {
+                @Override
+                public List<Product> doWithRetry(RetryContext retryContext) throws RuntimeException {
+                    System.out.println("Số lần retry: " + (retryContext.getRetryCount() + 1));
+                    ResponseEntity<List<Product>> response = restTemplate.exchange(
+                            getAllProductUrl,
+                            HttpMethod.GET,
+                            null,
+                            new ParameterizedTypeReference<List<Product>>() {});
+
+                    if (response.getStatusCode() == HttpStatus.OK) {
+                        return response.getBody();
+                    } else {
+                        throw new RuntimeException("lỗi fetching");
+                    }
+                }
+            });
+        } catch (RuntimeException e) {
+            System.err.println("Lỗi" + e.getMessage());
+            return Collections.emptyList();
+        }
+    }
+
+    // Phương thức fallback
+    public List<Product> getAllProductFallback(Exception e) {
+        return Collections.emptyList();
+    }
     @GetMapping("/findById/{id}")
     public Purchase getPurchaseById(@PathVariable String id) {
         return purchaseRepository.findById(id).orElse(null);
@@ -44,13 +88,10 @@ public class PurchaseController {
         if (productIds.isEmpty()) {
             return ResponseEntity.badRequest().body("Product IDs cannot be empty");
         }
-
         Optional<List<Product>> productsOptional = getProductsByIds(productIds);
         if (productsOptional.isEmpty()) {
             return ResponseEntity.badRequest().body("Products not found");
         }
-
-        // Tạo đối tượng Purchase
         Purchase purchase = new Purchase();
         purchase.setProductIds(productIds);
         purchase.setPurchaseDate(LocalDate.now());
@@ -77,14 +118,6 @@ public class PurchaseController {
         return null;
     }
 
-//    public Optional<Product> getProductById(@PathVariable String id) {
-//        try {
-//            Product product = restTemplate.getForObject("http://localhost:8082/api/products/findById/" + id, Product.class);
-//            return Optional.ofNullable(product);
-//        } catch (Exception e) {
-//            return Optional.empty();
-//        }
-//    }
 public Product getProductById(String productId) {
     String getProductUrl = "http://localhost:8082/api/product/findById/{id}" + productId ;
     ResponseEntity<Product> response = restTemplate.getForEntity(getProductUrl, Product.class);
@@ -95,21 +128,7 @@ public Product getProductById(String productId) {
         return null;
     }
 }
-//public ResponseEntity<Product> getProductById(String id) {
-//    try {
-//        Product product = restTemplate.getForObject("http://localhost:8082/api/products/findById/" + id, Product.class);
-//        if (product != null) {
-//            return ResponseEntity.ok(product);
-//        } else {
-//            return ResponseEntity.notFound().build();
-//        }
-//
-//    } catch (HttpClientErrorException.NotFound ex) {
-//        return ResponseEntity.notFound().build();
-//    } catch (Exception e) {
-//        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-//    }
-//}
+
 
     public Optional<List<Product>> getProductsByIds(List<String> productIds) {
         try {
@@ -126,7 +145,9 @@ public Product getProductById(String productId) {
             return Optional.empty();
         }
     }
-    public Double getProductPrice(String productId) {
+
+    @GetMapping("/getProdcutPriceById")
+    public Double getProductPrice( @RequestBody  String productId) {
         String getProductUrl = "http://localhost:8082/api/product/" + productId + "/price";
         ResponseEntity<Double> response = restTemplate.getForEntity(getProductUrl, Double.class);
         if (response.getStatusCode() == HttpStatus.OK) {
