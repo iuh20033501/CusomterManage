@@ -19,7 +19,7 @@ public class ProductController {
 
     private static final String SERVICE_STAFF ="serviceStaff";
 
-
+//Rate Limter Client
     @RateLimiter(name = SERVICE_STAFF)
     @GetMapping("/getAll")
     public List<Product> getAllProduct() {
