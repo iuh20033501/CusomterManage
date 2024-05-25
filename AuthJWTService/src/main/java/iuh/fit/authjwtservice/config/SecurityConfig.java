@@ -32,23 +32,19 @@ public class SecurityConfig {
 //    }
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf(csrf -> csrf.ignoringRequestMatchers("/auth/register", "/auth/**"));
-        http.authorizeHttpRequests(auth -> auth
+        http.csrf(csrf->csrf.ignoringRequestMatchers("/auth/register", "/auth/**"));
+        http.authorizeHttpRequests(auth->auth
                 .requestMatchers("/auth/register", "/auth/login").permitAll()//nhung links nay khong can authenticate
                 .requestMatchers("/h2-console/**").permitAll()
                 .anyRequest().authenticated()
         );
-        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class); // Thêm filter JWT trước filter UsernamePasswordAuthenticationFilter
-//        http.csrf().disable(); //
-
-//        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class).csrf().disable();
-
-
+        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class).csrf().disable();
 //        http.csrf(csrf->csrf.ignoringRequestMatchers("/h2-console/**"));
 //        http.headers(headers->headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
 //        http.httpBasic(Customizer.withDefaults());//cac thiet lap con lai thi theo mac dinh
         return http.build();
     }
+
 
 
 }
