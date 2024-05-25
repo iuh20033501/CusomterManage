@@ -11,6 +11,7 @@
         <option value="$PROJECT_DIR$/AnalysisService/pom.xml" />
         <option value="$PROJECT_DIR$/AuthJWTService/pom.xml" />
         <option value="$PROJECT_DIR$/ServiceDiscovery/pom.xml" />
+        <option value="$PROJECT_DIR$/APIGateway/pom.xml" />
       </list>
     </option>
   </component>

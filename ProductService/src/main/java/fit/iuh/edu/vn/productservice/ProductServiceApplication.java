@@ -26,9 +26,9 @@ public class ProductServiceApplication {
             public void run(String... args) throws Exception {
 //                Product p1 = new Product("LK02","Tai nghe dareU",1000000);
 //                productController.createProduct(p1);
-                List<Product> listP = new ArrayList<>();
-                listP = productController.getAllProduct();
-                System.out.println(listP);
+//                List<Product> listP = new ArrayList<>();
+//                listP = productController.getAllProduct();
+//                System.out.println(listP);
             }
         };
     }

@@ -1,0 +1,19 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:3000/eureka
+    register-with-eureka:
+      value: true
+    fetch-registry:
+      value: true
+    instance:
+      hostname: localhost
+
+resilience4j:
+  ratelimiter:
+    instances:
+      serviceStaff:
+        registerHealthIndicator: false
+        limitForPeriod: 3
+        limitRefreshPeriod: 10s
+        timeoutDuration: 5s

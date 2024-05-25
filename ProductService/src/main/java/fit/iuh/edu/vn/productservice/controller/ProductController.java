@@ -1,6 +1,8 @@
 package fit.iuh.edu.vn.productservice.controller;
 
 import fit.iuh.edu.vn.productservice.entity.Product;
+import io.github.resilience4j.ratelimiter.RateLimiterRegistry;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,10 @@ public class ProductController {
     @Autowired
     private ProductRepository productRepository;
 
+    private static final String SERVICE_STAFF ="serviceStaff";
+
+
+    @RateLimiter(name = SERVICE_STAFF)
     @GetMapping("/getAll")
     public List<Product> getAllProduct() {
         return productRepository.findAll();
@@ -60,8 +66,8 @@ public class ProductController {
         return ResponseEntity.ok("Quantity of product " + productId + " reduced successfully");
     }
     @GetMapping("/findById/{id}")
-    public Optional<Product> getProductById(String id) {
-        return productRepository.findById(id);
+    public Product getProductById(String id) {
+        return productRepository.findById(id).orElse(null);
     }
     @PostMapping("/create")
     public Product createProduct(Product product) {
