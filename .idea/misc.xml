@@ -9,15 +9,15 @@
         <option value="$PROJECT_DIR$/PurchaseService/pom.xml" />
         <option value="$PROJECT_DIR$/ProductService/pom.xml" />
         <option value="$PROJECT_DIR$/AnalysisService/pom.xml" />
-<<<<<<< HEAD
         <option value="$PROJECT_DIR$/APIGateway/pom.xml" />
         <option value="$PROJECT_DIR$/AuthJWTService/pom.xml" />
         <option value="$PROJECT_DIR$/ServiceDiscovery/pom.xml" />
-=======
         <option value="$PROJECT_DIR$/AuthJWTService/pom.xml" />
         <option value="$PROJECT_DIR$/ServiceDiscovery/pom.xml" />
         <option value="$PROJECT_DIR$/APIGateway/pom.xml" />
->>>>>>> c5425128744f13425e940333cbe9b8d59bd919ad
+        <option value="$PROJECT_DIR$/AuthJWTService/pom.xml" />
+        <option value="$PROJECT_DIR$/ServiceDiscovery/pom.xml" />
+        <option value="$PROJECT_DIR$/APIGateway/pom.xml" />
       </list>
     </option>
   </component>

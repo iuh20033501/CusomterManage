@@ -8,8 +8,7 @@ eureka:
       value: true
     instance:
       hostname: localhost
-
-
+      
 resilience4j:
   circuitbreaker:
     instances:
@@ -27,4 +26,5 @@ resilience4j:
     instances:
       retryApi:
         max-attempts: 3
+        wait-duration: 5s
         wait-duration: 5s

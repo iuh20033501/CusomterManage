@@ -11,6 +11,7 @@
         <module name="CustomersService" />
         <module name="AuthJWTService" />
         <module name="PurchaseService" />
+        <module name="AuthJWTService" />
         <module name="ProductService" />
         <module name="AnalysisService" />
         <module name="StaffsService" />
