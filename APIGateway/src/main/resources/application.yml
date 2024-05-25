@@ -1,12 +1,11 @@
 eureka:
   client:
     service-url:
-        defaultZone: http://localhost:8761/eureka/
+        defaultZone: http://localhost:3000/eureka/
     register-with-eureka: true
     fetch-registry: true
     instance:
       hostname: localhost
-
 
 spring:
   application:
@@ -20,3 +19,17 @@ spring:
             - Path=/auth/**
           filters:
             - AuthenticationFilter
+
+#        - id: CUSTOMER-SERVICE
+#          uri: lb://CUSTOMER-SERVICE
+#          predicates:
+#            - Path=/api/v1/customers/**
+#          filters:
+#            - AuthenticationFilter
+#
+#        - id: STAFF-SERVICE
+#          uri: lb://STAFF-SERVICE
+#          predicates:
+#            - Path=/api/v1/staff/**
+#          filters:
+#            - AuthenticationFilter

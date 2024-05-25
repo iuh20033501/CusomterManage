@@ -19,9 +19,9 @@ import java.util.Date;
 public class JwtUtil {
 
     private static Logger logger = LoggerFactory.getLogger(JwtUtil.class);
-    private static final String USER = "nhom12";
-    private static final String SECRET = "base64EncodedSecretKey";
-
+    private static final String USER = "tien";
+    private static final String SECRET = "hey Mr Tien the secrect length must be at least 256 bits" +
+            " please no reveal!";
     public String generateToken(UserPrincipal user) {
         String token = null;
         try {

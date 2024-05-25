@@ -15,7 +15,6 @@ import java.util.Set;
 public class User extends BaseEntity {
 
     private String username;
-
     private String password;
 
     @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
