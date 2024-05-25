@@ -9,6 +9,12 @@
         <option value="$PROJECT_DIR$/PurchaseService/pom.xml" />
         <option value="$PROJECT_DIR$/ProductService/pom.xml" />
         <option value="$PROJECT_DIR$/AnalysisService/pom.xml" />
+        <option value="$PROJECT_DIR$/APIGateway/pom.xml" />
+        <option value="$PROJECT_DIR$/AuthJWTService/pom.xml" />
+        <option value="$PROJECT_DIR$/ServiceDiscovery/pom.xml" />
+        <option value="$PROJECT_DIR$/AuthJWTService/pom.xml" />
+        <option value="$PROJECT_DIR$/ServiceDiscovery/pom.xml" />
+        <option value="$PROJECT_DIR$/APIGateway/pom.xml" />
         <option value="$PROJECT_DIR$/AuthJWTService/pom.xml" />
         <option value="$PROJECT_DIR$/ServiceDiscovery/pom.xml" />
         <option value="$PROJECT_DIR$/APIGateway/pom.xml" />

@@ -8,7 +8,7 @@ eureka:
       value: true
     instance:
       hostname: localhost
-
+      
 resilience4j:
   ratelimiter:
     instances:
