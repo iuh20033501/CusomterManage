@@ -13,37 +13,114 @@ services:
       - "3001:3001"
     networks:
       - shop-management-network
+  auth-jwt-service:
+    build: ./AuthJWTService
+    ports:
+      - "3002:3002"
+    environment:
+      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.mariadb.jdbc.Driver
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=sapassword
+      - SPRING_DATASOURCE_URL=jdbc:mariadb://localhost:3306/JWT_DB?createDatabaseIfNotExist=true
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_JPA_SHOW_SQL=true
+      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.MariaDBDialect
+      - SPRING_H2_CONSOLE_ENABLED=true
+      - SERVER_PORT=3002
+      - SPRING_JPA_PROPERTIES_HIBERNATE_CURRENT_SESSION_CONTEXT_CLASS=org.springframework.orm.hibernate5.SpringSessionContext
+      - SPRING_JPA_PROPERTIES_HIBERNATE_ID_NEW_GENERATOR_MAPPINGS=false
+      - SPRING_MAIN_ALLOW_BEAN_DEFINITION_OVERRIDING=true
+      - SPRING_APPLICATION_NAME=AuthService
+    networks:
+      - shop-management-network
   staff-service:
     build: ./StaffsService
     ports:
       - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mariadb://localhost:3306/db_staff?createDatabaseIfNotExist=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=sapassword
+      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.mariadb.jdbc.Driver
+      - SPRING_JPA_SHOW_SQL=true
+      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.MariaDBDialect
+      - SPRING_JPA_PROPERTIES_HIBERNATE_CURRENT_SESSION_CONTEXT_CLASS=org.springframework.orm.hibernate5.SpringSessionContext
+      - SPRING_JPA_PROPERTIES_HIBERNATE_ID_NEW_GENERATOR_MAPPINGS=true
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_DATA_REDIS_HOST=localhost
+      - SPRING_DATA_REDIS_PORT=6379
+      - SPRING_DATA_REDIS_LETTUCE_SHUTDOWN_TIMEOUT=30000
+      - SPRING_DATA_REDIS_LETTUCE_POOL_MAX_ACTIVE=30
+      - SPRING_DATA_REDIS_LETTUCE_POOL_MAX_IDLE=8
+      - SPRING_DATA_REDIS_LETTUCE_POOL_MIN_IDLE=0
+      - SPRING_MAIN_ALLOW_CIRCULAR_REFERENCES=true
     networks:
       - shop-management-network
   customer-service:
     build: ./CustomersService
     ports:
       - "8081:8081"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mariadb://localhost:3306/db_customers?createDatabaseIfNotExist=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=sapassword
+      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.mariadb.jdbc.Driver
+      - SPRING_JPA_SHOW_SQL=true
+      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.MariaDBDialect
+      - SPRING_JPA_PROPERTIES_HIBERNATE_CURRENT_SESSION_CONTEXT_CLASS=org.springframework.orm.hibernate5.SpringSessionContext
+      - SPRING_JPA_PROPERTIES_HIBERNATE_ID_NEW_GENERATOR_MAPPINGS=true
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
     networks:
       - shop-management-network
   product-service:
     build: ./ProductService
     ports:
       - "8082:8082"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mariadb://localhost:3306/db_products?createDatabaseIfNotExist=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=sapassword
+      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.mariadb.jdbc.Driver
+      - SPRING_JPA_SHOW_SQL=true
+      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.MariaDBDialect
+      - SPRING_JPA_PROPERTIES_HIBERNATE_CURRENT_SESSION_CONTEXT_CLASS=org.springframework.orm.hibernate5.SpringSessionContext
+      - SPRING_JPA_PROPERTIES_HIBERNATE_ID_NEW_GENERATOR_MAPPINGS=true
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
     networks:
       - shop-management-network
   purchase-service:
     build: ./PurchaseService
     ports:
       - "8083:8083"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mariadb://localhost:3306/db_purchase?createDatabaseIfNotExist=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=sapassword
+      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.mariadb.jdbc.Driver
+      - SPRING_JPA_SHOW_SQL=true
+      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.MariaDBDialect
+      - SPRING_JPA_PROPERTIES_HIBERNATE_CURRENT_SESSION_CONTEXT_CLASS=org.springframework.orm.hibernate5.SpringSessionContext
+      - SPRING_JPA_PROPERTIES_HIBERNATE_ID_NEW_GENERATOR_MAPPINGS=true
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_MAIN_ALLOW_CIRCULAR_REFERENCES=true
     networks:
       - shop-management-network
   analysis-service:
     build: ./AnalysisService
     ports:
       - "8084:8084"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mariadb://localhost:3306/db_analysis?createDatabaseIfNotExist=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=sapassword
+      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.mariadb.jdbc.Driver
+      - SPRING_JPA_SHOW_SQL=true
+      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.MariaDBDialect
+      - SPRING_JPA_PROPERTIES_HIBERNATE_CURRENT_SESSION_CONTEXT_CLASS=org.springframework.orm.hibernate5.SpringSessionContext
+      - SPRING_JPA_PROPERTIES_HIBERNATE_ID_NEW_GENERATOR_MAPPINGS=true
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
     networks:
       - shop-management-network
-
 
 
 networks:
