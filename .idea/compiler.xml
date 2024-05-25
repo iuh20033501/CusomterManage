@@ -11,7 +11,7 @@
         <module name="CustomersService" />
         <module name="AuthJWTService" />
         <module name="PurchaseService" />
-        <module name="AuthJWTService" />
+        <module name="DeliveryService" />
         <module name="ProductService" />
         <module name="AnalysisService" />
         <module name="StaffsService" />
@@ -25,6 +25,7 @@
       <module name="AnalysisService" options="-parameters" />
       <module name="AuthJWTService" options="-parameters" />
       <module name="CustomersService" options="-parameters" />
+      <module name="DeliveryService" options="-parameters" />
       <module name="ProductService" options="-parameters" />
       <module name="PurchaseService" options="-parameters" />
       <module name="ServiceDiscovery" options="-parameters" />
